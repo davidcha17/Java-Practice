@@ -8,19 +8,47 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Let's calculate your mortgage payments");
 
+        int principal = 0;
+        int years = 0;
+        float actualRate = 0;
+        int monthly = 0;
+
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Principal: ");
-        long principal = scanner.nextLong();
 
-        System.out.print("Annual Interest Rate: ");
-        float rate = scanner.nextFloat();
-        float actualRate = (rate / 100) / 12;
-        System.out.println("Annual Rate: " + actualRate);
+        while(true) {
+            System.out.print("Principal: ");
+            principal = scanner.nextInt();
+            if(principal >= 1_000 && principal <= 1_000_000)
+                break;
+            else
+                System.out.println("Please print a number between 1,000 and 1,000,000.");
+        }
 
-        System.out.print("Period (years): ");
-        int year = scanner.nextInt();
-        int monthly = year * 12;
-        System.out.println("months: " + monthly);
+        while (true) {
+            System.out.print("Annual Interest Rate: ");
+            float rate = scanner.nextFloat();
+            if(rate > 0 && rate <= 30) {
+                actualRate = (rate / 100) / 12;
+                System.out.println("Annual Rate: " + actualRate);
+                break;
+            }
+            else
+                System.out.println("Please enter an annual interest rate between 0 and 30.");
+        }
+
+
+
+        while(true) {
+            System.out.print("Period (years): ");
+            int year = scanner.nextInt();
+            if(year >= 1 && year <= 30) {
+                monthly = year * 12;
+                System.out.println("months: " + monthly);
+                break;
+            }
+            else
+                System.out.println("Please enter a year between 1 and 30.");
+        }
 
         float ratePlusOne = (float) (Math.pow((1 + actualRate), monthly));
 //        System.out.println("ratePlusOne is: " + ratePlusOne);
@@ -30,7 +58,7 @@ public class Main {
         String currency = NumberFormat.getCurrencyInstance().format(mortgage);
 
         System.out.println("Mortgage: " + currency);
-        refactored(principal, rate, year);
+//        refactored(principal, rate, year);
     }
 
     private static void refactored(long principal, float rate, int year) {
@@ -50,5 +78,10 @@ public class Main {
         System.out.println("refactored part: ");
         System.out.println(totalPayment);
     }
+    /*
+    From all this, the concepts utilized for this basic practice were reference types, casting (implicit and explicit)
+    primitive types, reading inputs, variables and CONSTANTS, and strings, numbers, and arrays. We need conditional
+    statements to make this flow better without hitting the EXCEPTION ERROR.
+    */
 
 }
